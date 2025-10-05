@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRESHI – Der Lernfuchs 🦊</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body {
+  font-family: 'Comic Sans MS', sans-serif;
+  background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+h1 {
+  color: #ff7043;
+  margin-top: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+#game {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff3e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+button {
+  background: #ff7043;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 1.1em;
+  transition: transform 0.2s;
+}
+button:hover {
+  background: #ff8a65;
+  transform: scale(1.05);
+}
+img {
+  max-width: 150px;
+  margin-top: 15px;
+  animation: bounce 1s infinite alternate;
+}
+#text {
+  font-size: 1.2em;
+  margin-top: 20px;
+  color: #4e342e;
+  min-height: 100px;
+}
+#level {
+  font-weight: bold;
+  color: #d84315;
+}
+@keyframes bounce {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-15px); }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<h1>🦊 Willkommen bei FRESHI – dem Lernfuchs!</h1>
+<div id="game">
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Freshi der Fuchs">
+  <div id="text">Hallo! Ich bin <b>Freshi</b>. Willst du lernen, wie du mit der <b>FRESH-Methode</b> super lernst?</div>
+  <button onclick="startGame()">Los geht’s!</button>
+</div>
+
+<script>
+// Service Worker Registrierung
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(()=>console.log('Service Worker registered'))
+    .catch(err=>console.log('SW registration failed', err));
+}
+
+let step = 0;
+const levels = [
+  {title:"F – Fragen stellen", text:"Stelle eine gute Frage zu dem, was du lernen willst. Zum Beispiel: 'Wie funktioniert der Regenbogen?'"},
+  {title:"R – Reproduzieren", text:"Versuche, das Gelernte ohne Hilfe aufzuschreiben oder zu erzählen. So prüfst du, was du schon weißt!"},
+  {title:"E – Erklären", text:"Erkläre es jemand anderem! Zum Beispiel deinen Eltern oder einem Freund. So merkst du, ob du es wirklich verstanden hast."},
+  {title:"S – Selbst testen", text:"Teste dich selbst! Mach kleine Quizfragen oder Karteikarten. Freshi liebt kleine Tests!"},
+  {title:"H – Hilfen nutzen", text:"Wenn du etwas nicht weißt, schau in dein Heft oder frage jemanden. Hilfen sind erlaubt – sie helfen dir zu wachsen!"},
+  {title:"🎉 Super!", text:"Du hast alle FRESH-Schritte gelernt! Jetzt bist du ein echter Lernfuchs wie ich! 🦊"}
+];
+
+function startGame() {
+  const btn = document.querySelector("button");
+  const text = document.getElementById("text");
+
+  if (step < levels.length) {
+    text.innerHTML = "<b id='level'>" + levels[step].title + "</b><br><br>" + levels[step].text;
+    btn.textContent = (step < levels.length - 1) ? "Weiter" : "Nochmal spielen";
+    // kleine Jubel-Animation
+    text.style.color = '#2ecc71';
+    setTimeout(()=>{ text.style.color='#4e342e'; }, 800);
+    step++;
+  } else {
+    step = 0;
+    text.innerHTML = "Willst du nochmal mit Freshi lernen?";
+    btn.textContent = "Ja, nochmal!";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+
+{
+  "name": "FRESHI Lernspiel",
+  "short_name": "FRESHI",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#e0f7fa",
+  "theme_color": "#ff7043",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
